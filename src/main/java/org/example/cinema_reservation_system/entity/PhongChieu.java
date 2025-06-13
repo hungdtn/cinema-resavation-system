@@ -10,7 +10,7 @@ import org.example.cinema_reservation_system.utils.Enum;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "phong_chieu")
+@Table(name = "PhongChieu")
 public class PhongChieu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,21 +23,10 @@ public class PhongChieu {
     private Double dienTichPhong;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "trang_thai", nullable = false, columnDefinition = "enum_trang_thai_phong_chieu")
-    private Enum.TrangThaiPhongChieu trangThaiPhongChieu = Enum.TrangThaiPhongChieu.HOAT_DONG;
+    @Column(name = "trang_thai", nullable = false)
+    private Enum.TrangThaiPhongChieu trangThai = Enum.TrangThaiPhongChieu.hoat_dong;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_rap_chieu", nullable = false)
     private RapChieu rapChieu;
-
-    @Override
-    public String toString() {
-        return "PhongChieu{" +
-                "idPhongChieu=" + idPhongChieu +
-                ", tenPhongChieu='" + tenPhongChieu + '\'' +
-                ", dienTichPhong=" + dienTichPhong +
-                ", trangThai=" + trangThaiPhongChieu +
-                ", rapChieu=" + rapChieu +
-                '}';
-    }
 }
