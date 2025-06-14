@@ -1,0 +1,14 @@
+package org.example.cinema_reservation_system.exception;
+
+public class ResourceNotFoundException extends RuntimeException {
+    public ResourceNotFoundException(String message) {
+        super(message);
+    }
+
+    public ResourceNotFoundException(String resourceName, String fieldName, Object fieldValue) {
+        super(String.format("%s không tìm thấy với %s = %s", resourceName, fieldName, fieldValue));
+    }
+
+}
+
+

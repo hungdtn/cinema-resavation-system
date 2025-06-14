@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
-import org.example.cinema_reservation_system.utils.enums.TrangThaiVePhim;
+import org.example.cinema_reservation_system.utils.Enum;
 
 import java.time.LocalDate;
 
@@ -14,45 +14,43 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "vephim")
+@Table(name = "VePhim")
 public class VePhim {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_ve_phim")
     private Integer idVePhim;
 
-    @Column(name = "gia_ve")
+    @Column(name = "gia_ve", nullable = false)
     private Double giaVe;
 
-    @Column(name = "ngay_dat")
+    @Column(name = "ngay_dat", nullable = false)
     private LocalDate ngayDat;
 
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "id_suat_chieu")
+    @ManyToOne
+    @JoinColumn(name = "id_suat_chieu", nullable = false)
     private SuatChieu suatChieu;
 
     @ManyToOne
-    @JoinColumn(name = "id_khach_hang")
+    @JoinColumn(name = "id_khach_hang", nullable = false)
     private KhachHang khachHang;
 
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "id_ghe_ngoi")
+    @ManyToOne
+    @JoinColumn(name = "id_ghe_ngoi", nullable = false)
     private GheNgoi gheNgoi;
 
     @ManyToOne
-    @JoinColumn(name = "id_hoa_don")
+    @JoinColumn(name = "id_hoa_don", nullable = false)
     private HoaDon hoaDon;
 
     @ManyToOne
-    @JoinColumn(name = "id_phim")
+    @JoinColumn(name = "id_phim", nullable = false)
     private Phim phim;
 
     @ManyToOne
-    @JoinColumn(name = "id_nhan_vien")
+    @JoinColumn(name = "id_nhan_vien", nullable = false)
     private NhanVien nhanVien;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "trang_thai", columnDefinition = "enum_trang_thai_ve_phim", nullable = false)
-    private TrangThaiVePhim trangThai;
-
+    @Column(name = "trang_thai", nullable = false)
+    private Enum.TrangThaiVePhim trangThai = Enum.TrangThaiVePhim.con_trong;
 }
