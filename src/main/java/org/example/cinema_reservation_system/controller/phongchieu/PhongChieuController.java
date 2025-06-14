@@ -1,4 +1,4 @@
-package org.example.cinema_reservation_system.controller;
+package org.example.cinema_reservation_system.controller.phongchieu;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

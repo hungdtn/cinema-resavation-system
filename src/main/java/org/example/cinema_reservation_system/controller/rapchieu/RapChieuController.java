@@ -1,17 +1,14 @@
-package org.example.cinema_reservation_system.controller;
+package org.example.cinema_reservation_system.controller.rapchieu;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.cinema_reservation_system.dto.rapchieudto.RapChieuRequestDto;
 import org.example.cinema_reservation_system.dto.rapchieudto.RapChieuResponseDto;
 import org.example.cinema_reservation_system.service.RapChieuService;
-import org.example.cinema_reservation_system.utils.Enum;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/rap_chieu")

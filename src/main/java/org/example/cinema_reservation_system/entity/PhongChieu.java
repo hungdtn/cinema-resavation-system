@@ -14,7 +14,7 @@ import org.example.cinema_reservation_system.utils.Enum;
 public class PhongChieu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idPhongChieu;
+    private Integer id;
 
     @Column(name = "ten_phong_chieu", nullable = false, length = 100)
     private String tenPhongChieu;

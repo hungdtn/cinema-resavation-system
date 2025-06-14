@@ -1,6 +1,6 @@
 package org.example.cinema_reservation_system.security;
 
-import org.example.cinema_reservation_system.Entity.UserAccount;
+import org.example.cinema_reservation_system.entity.UserAccount;
 import org.example.cinema_reservation_system.repository.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;

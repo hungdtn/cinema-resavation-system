@@ -1,10 +1,10 @@
-package org.example.cinema_reservation_system.controller;
+package org.example.cinema_reservation_system.controller.auth;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.cinema_reservation_system.Entity.UserAccount;
-import org.example.cinema_reservation_system.dto.LoginDto;
-import org.example.cinema_reservation_system.dto.UserRegisterDto;
+import org.example.cinema_reservation_system.dto.auth.LoginDto;
+import org.example.cinema_reservation_system.dto.user.UserRegisterDto;
+import org.example.cinema_reservation_system.entity.UserAccount;
 import org.example.cinema_reservation_system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

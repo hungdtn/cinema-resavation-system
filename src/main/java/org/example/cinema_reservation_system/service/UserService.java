@@ -1,8 +1,11 @@
 package org.example.cinema_reservation_system.service;
 
-import jakarta.validation.Valid;
-import org.example.cinema_reservation_system.Entity.UserAccount;
-import org.example.cinema_reservation_system.dto.*;
+import org.example.cinema_reservation_system.dto.auth.ChangePasswordDto;
+import org.example.cinema_reservation_system.dto.auth.LoginDto;
+import org.example.cinema_reservation_system.dto.user.UserRegisterDto;
+import org.example.cinema_reservation_system.dto.user.UserResponseDto;
+import org.example.cinema_reservation_system.dto.user.UserUpdateDto;
+import org.example.cinema_reservation_system.entity.UserAccount;
 
 public interface UserService {
 
