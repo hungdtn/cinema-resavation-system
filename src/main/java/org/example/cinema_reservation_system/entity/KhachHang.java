@@ -1,10 +1,10 @@
-package org.example.cinema_reservation_system.Entity;
+package org.example.cinema_reservation_system.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
-import org.example.cinema_reservation_system.Utils.Enum;
+import org.example.cinema_reservation_system.utils.Enum;
 
 import java.time.LocalDate;
 
@@ -12,10 +12,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "KhachHang")
+@Table(name = "khachhang")
 public class KhachHang {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_khach_hang")
     private Integer idKhachHang;
 
     @Column(name = "ten_khach_hang", nullable = false, length = 100)
@@ -25,7 +26,7 @@ public class KhachHang {
     private String email;
 
     @Column(name = "so_dien_thoai", nullable = false, length = 15)
-    private String soDienThoai;
+    private String soDienThoaiKhachHang;
 
     @Column(name = "ngay_sinh")
     private LocalDate ngaySinh;
@@ -34,10 +35,10 @@ public class KhachHang {
     private String gioiTinh;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "trang_thai", nullable = false)
+    @Column(name = "trang_thai")
     private Enum.TrangThaiKhachHang trangThai = Enum.TrangThaiKhachHang.hoat_dong;
 
-    @Column(name = "diem_tich_luy", nullable = false)
+    @Column(name = "diem_tich_luy")
     private Integer diemTichLuy = 0;
 
 }

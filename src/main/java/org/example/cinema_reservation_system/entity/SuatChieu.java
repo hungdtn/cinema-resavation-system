@@ -1,11 +1,11 @@
-package org.example.cinema_reservation_system.Entity;
+package org.example.cinema_reservation_system.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
-import org.example.cinema_reservation_system.Utils.Enum;
+import org.example.cinema_reservation_system.utils.Enum;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -14,10 +14,11 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "SuatChieu")
+@Table(name = "suatchieu")
 public class SuatChieu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_suat_chieu")
     private Integer idSuatChieu;
 
     @Column(name = "ten_suat_chieu", nullable = false, length = 100)
@@ -46,4 +47,5 @@ public class SuatChieu {
     @ManyToOne
     @JoinColumn(name = "id_phong_chieu", nullable = false)
     private PhongChieu phongChieu;
+
 }
