@@ -8,7 +8,7 @@
 //import org.example.cinema_reservation_system.mapper.suatchieu.SuatChieuModelMapper;
 //import org.example.cinema_reservation_system.repository.suatchieu.SuatChieuRepository;
 //import org.example.cinema_reservation_system.repository.phim.PhimRepository;
-//import org.example.cinema_reservation_system.repository.phongchieu.PhongChieuRepository;
+//import org.example.cinema_reservation_system.repository.phongchieurepository.PhongChieuRepo;
 //import org.example.cinema_reservation_system.service.suatchieu.SuatChieuService;
 //import org.example.cinema_reservation_system.utils.Enum.TrangThaiSuatChieu;
 //import org.springframework.data.domain.Page;
