@@ -7,11 +7,14 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
-public class GlobalExceptionHandler  {
+public class GlobalExceptionHandler {
 
     // Xử lý lỗi không tìm thấy
     @ExceptionHandler(ResourceNotFoundException.class)
@@ -41,7 +44,7 @@ public class GlobalExceptionHandler  {
     // Xử lý lỗi chung còn lại
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleGeneralError(Exception ex) {
-        ex.printStackTrace();  // In lỗi ra console để tiện debug
+        ex.printStackTrace();
 
         Map<String, String> error = new HashMap<>();
         error.put("error", "Lỗi hệ thống: " + (ex.getMessage() != null ? ex.getMessage() : "Không xác định"));
@@ -56,26 +59,39 @@ public class GlobalExceptionHandler  {
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-
-
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Map<String, String>> handleHttpMessageNotReadable(HttpMessageNotReadableException ex) {
         Map<String, String> error = new HashMap<>();
-        String message = ex.getMessage();
+        Throwable cause = ex.getCause();
 
-        if (message != null && message.contains("TrangThaiRapChieu")) {
-            error.put("error", "Trạng thái không hợp lệ. Vui lòng dùng: HOAT_DONG, KHONG_HOAT_DONG, BAO_TRI.");
-        } else if (ex.getCause() instanceof com.fasterxml.jackson.databind.exc.InvalidFormatException) {
-            error.put("error", "Giá trị truyền vào không hợp lệ. Kiểm tra định dạng các trường enum hoặc kiểu dữ liệu.");
+        if (cause instanceof com.fasterxml.jackson.databind.exc.InvalidFormatException invalidEx) {
+            String field = invalidEx.getPath().isEmpty() ? "Không xác định" : invalidEx.getPath().get(0).getFieldName();
+            Class<?> targetType = invalidEx.getTargetType();
+
+            if (targetType.isEnum()) {
+                Object[] enumConstants = targetType.getEnumConstants();
+                String allowedValues = Arrays.stream(enumConstants)
+                        .map(Object::toString)
+                        .collect(Collectors.joining(", "));
+                error.put("error", "Trường '" + field + "' có giá trị không hợp lệ. Giá trị hợp lệ: " + allowedValues + ".");
+            } else {
+                error.put("error", "Trường '" + field + "' có kiểu dữ liệu không hợp lệ.");
+            }
         } else {
-            error.put("error", "Dữ liệu không đọc được. Vui lòng kiểm tra định dạng JSON.");
+            error.put("error", "Dữ liệu JSON không hợp lệ. Vui lòng kiểm tra định dạng.");
         }
+
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(FileStorageException.class)
-    public ResponseEntity<String> handleFileStorageException(FileStorageException ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Lỗi lưu file: " + ex.getMessage());
+
+
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String, String>> handleIllegalArgument(IllegalArgumentException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
 }
