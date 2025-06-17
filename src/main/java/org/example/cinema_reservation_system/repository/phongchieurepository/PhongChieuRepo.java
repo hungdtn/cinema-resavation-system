@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+
 import java.util.Optional;
 
 @Repository
@@ -17,7 +17,7 @@ public interface PhongChieuRepo extends JpaRepository<PhongChieu, Integer> {
     java.util.List<PhongChieu> findByRapChieu_IdRapChieu(Integer idRapChieu);
 
     // Tìm theo trạng thái
-    java.util.List<PhongChieu> findByTrangThaiPhongChieu(Enum.TrangThaiPhongChieu trangThai);
+    java.util.List<PhongChieu> findByTrangThai(Enum.TrangThaiPhongChieu trangThai);
 
     // Tắt trạng thái phòng chiếu (đổi về KHONG_HOAT_DONG)
     @Modifying
@@ -56,5 +56,7 @@ public interface PhongChieuRepo extends JpaRepository<PhongChieu, Integer> {
             @Param("trangThai") String trangThai,
             @Param("idRap") Integer idRap
     );
+
+
 
 }

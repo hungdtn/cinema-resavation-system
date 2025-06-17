@@ -1,60 +1,55 @@
 package org.example.cinema_reservation_system.utils;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class Enum {
-
     public enum TrangThaiRole {
-        HOAT_DONG, KHONG_HOAT_DONG
+        hoat_dong, khong_hoat_dong
     }
 
     public enum TrangThaiUserAccount {
-        HOAT_DONG, KHONG_HOAT_DONG
+        hoat_dong, khong_hoat_dong
     }
 
     public enum TrangThaiNhanVien {
-        HOAT_DONG, KHONG_HOAT_DONG
+        hoat_dong, khong_hoat_dong
     }
 
     public enum TrangThaiThanhToan {
-        CHO_XU_LY, HOAN_THANH, DA_HUY
+        cho_xu_ly, hoan_thanh, da_huy
     }
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
     public enum TrangThaiPhim {
-        HOAT_DONG, KHONG_HOAT_DONG
+        hoat_dong, khong_hoat_dong
     }
 
     public enum TrangThaiVoucher {
-        HOAT_DONG, HET_HAN, DA_SU_DUNG
+        hoat_dong, het_han, da_su_dung
     }
 
     public enum TrangThaiKhachHang {
-        HOAT_DONG, KHONG_HOAT_DONG, BI_CAM
+        hoat_dong, khong_hoat_dong, bi_cam
     }
 
     public enum TrangThaiHoaDon {
-        CHO_THANH_TOAN, DA_THANH_TOAN, DA_HUY
+        cho_thanh_toan, da_thanh_toan, da_huy
     }
 
     public enum TrangThaiVePhim {
-        CON_TRONG, DA_BAN, DA_DAT
+        con_trong, da_ban, da_dat
     }
 
     public enum TrangThaiGheNgoi {
-        CON_TRONG, DA_DAT, DANG_SU_DUNG
+        con_trong, da_dat, dang_su_dung
     }
 
     public enum TrangThaiRapChieu {
-        HOAT_DONG, KHONG_HOAT_DONG, BAO_TRI
+        hoat_dong, khong_hoat_dong, bao_tri
     }
 
     public enum TrangThaiPhongChieu {
-        HOAT_DONG, KHONG_HOAT_DONG, BAO_TRI
+        hoat_dong, khong_hoat_dong, bao_tri
     }
 
     public enum TrangThaiSuatChieu {
-        DA_LEN_LICH, DANG_CHIEU, HOAN_THANH, DA_HUY
+        da_len_lich, dang_chieu, hoan_thanh, da_huy
     }
-
 }

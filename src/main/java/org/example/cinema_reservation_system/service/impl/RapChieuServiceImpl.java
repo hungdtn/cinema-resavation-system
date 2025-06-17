@@ -125,7 +125,7 @@ public RapChieuResponseDto save(RapChieuRequestDto dto) {
                 .filter(r -> {
                     if (trangThaiRaw == null) return true;
                     try {
-                        return r.getTrangThaiRapChieu().name().equalsIgnoreCase(trangThaiRaw);
+                        return r.getTrangThai().name().equalsIgnoreCase(trangThaiRaw);
                     } catch (Exception e) {
                         return false;
                     }

@@ -64,15 +64,15 @@ public class PhongChieuServiceImpl implements PhongChieuService {
         // Bước 3: Trả về DTO chi tiết
         RapChieu rap = entity.getRapChieu();
         return new PhongChieuResponseDto(
-                entity.getIdPhongChieu(),
+                entity.getId(),
                 entity.getTenPhongChieu(),
                 entity.getDienTichPhong(),
-                entity.getTrangThaiPhongChieu(),
+                entity.getTrangThai(),
                 rap.getIdRapChieu(),
                 rap.getTenRapChieu(),
                 rap.getDiaChi(),
                 rap.getSoDienThoai(),
-                rap.getTrangThaiRapChieu()
+                rap.getTrangThai()
         );
     }
 
@@ -133,14 +133,14 @@ public class PhongChieuServiceImpl implements PhongChieuService {
     }
 
     private Comparator<PhongChieu> getComparator(String sortBy, String order) {
-        Comparator<PhongChieu> comparator = Comparator.comparing(PhongChieu::getIdPhongChieu); // mặc định
+        Comparator<PhongChieu> comparator = Comparator.comparing(PhongChieu::getId); // mặc định
 
         if ("dienTich".equalsIgnoreCase(sortBy)) {
             comparator = Comparator.comparing(PhongChieu::getDienTichPhong);
         } else if ("ten".equalsIgnoreCase(sortBy)) {
             comparator = Comparator.comparing(p -> p.getTenPhongChieu().toLowerCase());
         } else if ("trangThai".equalsIgnoreCase(sortBy)) {
-            comparator = Comparator.comparing(p -> p.getTrangThaiPhongChieu().name());
+            comparator = Comparator.comparing(p -> p.getTrangThai().name());
         }
 
         if ("desc".equalsIgnoreCase(order)) {
@@ -162,10 +162,10 @@ public class PhongChieuServiceImpl implements PhongChieuService {
 
     private PhongChieu toEntity(PhongChieuRequestDto dto) {
         PhongChieu pc = new PhongChieu();
-        pc.setIdPhongChieu(dto.getIdPhongChieu());
+        pc.setId(dto.getIdPhongChieu());
         pc.setTenPhongChieu(dto.getTenPhongChieu());
         pc.setDienTichPhong(dto.getDienTichPhong());
-        pc.setTrangThaiPhongChieu(dto.getTrangThaiPhongChieu());
+        pc.setTrangThai(dto.getTrangThaiPhongChieu());
         pc.setRapChieu(getRapChieuById(dto.getIdRapChieu()));
         return pc;
     }
@@ -173,22 +173,22 @@ public class PhongChieuServiceImpl implements PhongChieuService {
     private void updateEntityFromDto(PhongChieu pc, PhongChieuRequestDto dto) {
         pc.setTenPhongChieu(dto.getTenPhongChieu());
         pc.setDienTichPhong(dto.getDienTichPhong());
-        pc.setTrangThaiPhongChieu(dto.getTrangThaiPhongChieu());
+        pc.setTrangThai(dto.getTrangThaiPhongChieu());
         pc.setRapChieu(getRapChieuById(dto.getIdRapChieu()));
     }
 
     private PhongChieuResponseDto toResponseDto(PhongChieu pc) {
         RapChieu rc = pc.getRapChieu();
         return new PhongChieuResponseDto(
-                pc.getIdPhongChieu(),
+                pc.getId(),
                 pc.getTenPhongChieu(),
                 pc.getDienTichPhong(),
-                pc.getTrangThaiPhongChieu(),
+                pc.getTrangThai(),
                 rc.getIdRapChieu(),
                 rc.getTenRapChieu(),
                 rc.getDiaChi(),
                 rc.getSoDienThoai(),
-                rc.getTrangThaiRapChieu()
+                rc.getTrangThai()
         );
     }
 
@@ -199,7 +199,7 @@ public class PhongChieuServiceImpl implements PhongChieuService {
     private boolean filterByTrangThai(PhongChieu p, String trangThaiStr) {
         if (trangThaiStr == null) return true;
         try {
-            return p.getTrangThaiPhongChieu().name().equalsIgnoreCase(trangThaiStr);
+            return p.getTrangThai().name().equalsIgnoreCase(trangThaiStr);
         } catch (Exception e) {
             return false;
         }

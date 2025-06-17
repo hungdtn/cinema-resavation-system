@@ -17,6 +17,3 @@ public interface PhimService {
     Map<String, Object> delete(Integer id);
     List<PhimResponseDto> filter(String theLoai, Enum.TrangThaiPhim trangThai);
 }
-
-
-

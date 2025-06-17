@@ -10,6 +10,7 @@ import org.example.cinema_reservation_system.utils.LoaiHinhAnh;
 @NoArgsConstructor
 @Entity
 @Table(name = "hinh_anh")
+
 public class HinhAnh {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,5 +32,6 @@ public class HinhAnh {
     @JoinColumn(name = "id_phim", nullable = false)
     @EqualsAndHashCode.Exclude
     private Phim phim;
+
 
 }
