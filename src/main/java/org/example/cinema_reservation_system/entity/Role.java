@@ -10,7 +10,7 @@ import org.example.cinema_reservation_system.utils.Enum;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Role")
+@Table(name = "vai_tro")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

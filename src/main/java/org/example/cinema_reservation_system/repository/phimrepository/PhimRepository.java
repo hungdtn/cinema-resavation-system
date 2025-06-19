@@ -7,7 +7,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +37,7 @@ public interface PhimRepository extends JpaRepository<Phim, Integer>, JpaSpecifi
                     @Param("ngayPhatHanh") LocalDate ngayPhatHanh,
                     @Param("trangThai") String trangThai,
                     @Param("dinhDang") String dinhDang,
-                    @Param("ngayTao") LocalDateTime ngayTao);
+                    @Param("ngayTao") LocalDate ngayTao);
 
     Optional<Phim> findByTenPhim(String tenPhim);
 
@@ -53,7 +52,7 @@ public interface PhimRepository extends JpaRepository<Phim, Integer>, JpaSpecifi
                     @Param("ngayPhatHanh") LocalDate ngayPhatHanh,
                     @Param("trangThai") String trangThai,
                     @Param("dinhDang") String dinhDang,
-                    @Param("ngayTao") LocalDateTime ngayTao);
+                    @Param("ngayTao") LocalDate ngayTao);
 
     @Query(value = """
                 SELECT * FROM phim\s

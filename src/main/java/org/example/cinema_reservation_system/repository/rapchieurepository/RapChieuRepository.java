@@ -15,9 +15,10 @@ import java.util.Optional;
 @Repository
 public interface RapChieuRepository extends JpaRepository<RapChieu, Integer> {
     List<RapChieu> findByTenRapChieuContainingIgnoreCase(String keyword);
-    List<RapChieu> findByTrangThaiRapChieu(Enum.TrangThaiRapChieu trangThai);
+    List<RapChieu> findByTrangThai(Enum.TrangThaiRapChieu trangThai);
     boolean existsByTenRapChieuIgnoreCase(String tenRapChieu);
-    Optional<RapChieu> findTopByTenRapChieuOrderByIdRapChieuDesc(String ten);
+
+    Optional<RapChieu> findTopByTenRapChieuOrderByIdDesc(String ten); // ✅ Sửa ở đây
 
     @Modifying
     @Query(value = """
@@ -48,4 +49,5 @@ public interface RapChieuRepository extends JpaRepository<RapChieu, Integer> {
             @Param("trangThai") String trangThai
     );
 }
+
 

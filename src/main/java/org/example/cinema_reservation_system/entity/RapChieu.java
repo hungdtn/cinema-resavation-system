@@ -10,11 +10,12 @@ import org.example.cinema_reservation_system.utils.Enum;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "RapChieu")
+@Table(name = "Rap_Chieu")
 public class RapChieu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idRapChieu;
+    @Column(name = "id_rap_chieu")
+    private Integer id;
 
     @Column(name = "ten_rap_chieu", nullable = false, unique = true, length = 100)
     private String tenRapChieu;

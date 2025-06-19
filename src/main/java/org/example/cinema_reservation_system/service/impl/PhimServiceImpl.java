@@ -91,7 +91,7 @@ public class PhimServiceImpl implements PhimService {
         ));
 
         // Tạo phim
-        LocalDateTime ngayTao = LocalDateTime.now();
+        LocalDate ngayTao = LocalDate.now();
         phimRepo.insertPhim(
                 dto.getTenPhim(),
                 dto.getMoTa(),
@@ -166,7 +166,7 @@ public class PhimServiceImpl implements PhimService {
         ));
 
         // Cập nhật phim
-        LocalDateTime ngayTao = phim.getNgayTao(); // giữ nguyên ngày tạo cũ
+        LocalDate ngayTao = phim.getNgayTao(); // giữ nguyên ngày tạo cũ
         phimRepo.updatePhim(
                 id,
                 dto.getTenPhim(),

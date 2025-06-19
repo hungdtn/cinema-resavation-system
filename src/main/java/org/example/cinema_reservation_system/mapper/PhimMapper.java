@@ -33,7 +33,7 @@ public class PhimMapper {
         dto.setNgayPhatHanh(phim.getNgayPhatHanh());
         dto.setDinhDang(phim.getDinhDang());
         dto.setTrangThai(phim.getTrangThai());
-        dto.setNgayTao(phim.getNgayTao() != null ? phim.getNgayTao().toLocalDate() : null);
+        dto.setNgayTao(phim.getNgayTao() != null ? phim.getNgayTao() : null);
         dto.setPosterUrl(getImageUrl(phim, LoaiHinhAnh.POSTER));
         dto.setBannerUrl(getImageUrl(phim, LoaiHinhAnh.BANNER));
         dto.setTrailerUrl(phim.getTrailer() != null ? phim.getTrailer().getUrl() : null);

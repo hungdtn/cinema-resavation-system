@@ -66,7 +66,7 @@ public RapChieuResponseDto save(RapChieuRequestDto dto) {
     );
 
     // Lấy bản ghi mới nhất theo tên
-    RapChieu saved = repo.findTopByTenRapChieuOrderByIdRapChieuDesc(dto.getTenRapChieu())
+    RapChieu saved = repo.findTopByTenRapChieuOrderByIdDesc(dto.getTenRapChieu())
             .orElseThrow(() -> new RuntimeException("Không thể lấy rạp chiếu vừa thêm"));
 
     return mapper.map(saved, RapChieuResponseDto.class);

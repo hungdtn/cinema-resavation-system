@@ -19,7 +19,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "SuatChieu")
+@Table(name = "Suat_Chieu")
 @ScriptAssert(
         lang = "javascript",
         script = "_this.thoiGianBatDau != null && _this.thoiGianKetThuc != null && _this.thoiGianBatDau.isBefore(_this.thoiGianKetThuc)",

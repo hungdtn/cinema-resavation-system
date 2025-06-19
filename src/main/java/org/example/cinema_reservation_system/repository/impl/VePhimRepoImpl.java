@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +30,7 @@ public class VePhimRepoImpl implements VePhimRepoCustom {
     @Transactional
     public void insertVePhimNative(
             Integer idGheNgoi,
-            Double giaVe,
+            BigDecimal giaVe,
             Integer idHoaDon,
             Integer idKhachHang,
             java.sql.Date ngayDat,

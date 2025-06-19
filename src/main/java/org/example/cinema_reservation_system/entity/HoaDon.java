@@ -7,13 +7,14 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import org.example.cinema_reservation_system.utils.Enum;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "hoadon")
+@Table(name = "hoa_don")
 public class HoaDon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +25,10 @@ public class HoaDon {
     private String tenHoaDon;
 
     @Column(name = "tong_tien", nullable = false)
-    private Double tongTien;
+    private BigDecimal tongTien;
 
     @Column(name = "tien_giam")
-    private Double tienGiam;
+    private BigDecimal tienGiam;
 
     @Column(name = "ngay_dat", nullable = false)
     private LocalDate ngayDat;

@@ -44,11 +44,11 @@ public class Phim {
     private String dinhDang;
 
     @Column(name = "ngay_tao", nullable = false)
-    private LocalDateTime ngayTao;
+    private LocalDate ngayTao;
 
     @PrePersist
     protected void onCreate() {
-        this.ngayTao = LocalDateTime.now();
+        this.ngayTao = LocalDate.now();
     }
 
     @ToString.Exclude

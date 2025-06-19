@@ -8,20 +8,21 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import org.example.cinema_reservation_system.utils.Enum;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "VePhim")
+@Table(name = "Ve_Phim")
 public class VePhim {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idVePhim;
 
     @Column(name = "gia_ve", nullable = false)
-    private Double giaVe;
+    private BigDecimal giaVe;
 
     @Column(name = "ngay_dat", nullable = false)
     private LocalDate ngayDat;

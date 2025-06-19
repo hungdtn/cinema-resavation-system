@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,7 +21,7 @@ public class PhongChieuRequestDto { // Add/update
 
     @NotNull(message = "Diện tích phòng không được để trống")
     @DecimalMin(value = "100.0", message = "Diện tích phải lớn hơn hoặc bằng 100")
-    private Double dienTichPhong;
+    private BigDecimal dienTichPhong;
 
     @NotNull(message = "Trạng thái không được để trống")
     private Enum.TrangThaiPhongChieu trangThaiPhongChieu;
