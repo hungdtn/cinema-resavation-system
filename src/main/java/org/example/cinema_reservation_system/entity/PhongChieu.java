@@ -1,19 +1,20 @@
-package org.example.cinema_reservation_system.Entity;
+package org.example.cinema_reservation_system.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
-import org.example.cinema_reservation_system.Utils.Enum;
+import org.example.cinema_reservation_system.utils.Enum;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "PhongChieu")
+@Table(name = "phongchieu")
 public class PhongChieu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_phong_chieu")
     private Integer idPhongChieu;
 
     @Column(name = "ten_phong_chieu", nullable = false, length = 100)

@@ -1,4 +1,4 @@
-package org.example.cinema_reservation_system.Utils;
+package org.example.cinema_reservation_system.utils;
 
 public class Enum {
     public enum TrangThaiRole {

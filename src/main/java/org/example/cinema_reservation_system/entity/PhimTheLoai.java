@@ -1,4 +1,4 @@
-package org.example.cinema_reservation_system.Entity;
+package org.example.cinema_reservation_system.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Phim_TheLoai")
+@Table(name = "phim_theloai")
 public class PhimTheLoai {
     @Id
     @ManyToOne

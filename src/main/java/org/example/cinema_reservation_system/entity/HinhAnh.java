@@ -1,4 +1,4 @@
-package org.example.cinema_reservation_system.Entity;
+package org.example.cinema_reservation_system.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,10 +10,11 @@ import jakarta.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "HinhAnh")
+@Table(name = "hinhanh")
 public class HinhAnh {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_hinh_anh")
     private Integer idHinhAnh;
 
     @Column(name = "ten_hinh_anh", nullable = false, length = 100)

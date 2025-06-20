@@ -1,11 +1,11 @@
-package org.example.cinema_reservation_system.Entity;
+package org.example.cinema_reservation_system.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
-import org.example.cinema_reservation_system.Utils.Enum;
+import org.example.cinema_reservation_system.utils.Enum;
 
 import java.time.LocalDateTime;
 
@@ -13,10 +13,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "UserAccount")
+@Table(name = "useraccount")
 public class UserAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_user_account")
     private Integer idUserAccount;
 
     @Column(name = "ten_dang_nhap", nullable = false, unique = true, length = 100)
