@@ -1,24 +1,34 @@
 package org.example.cinema_reservation_system.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "dienvien")
+@Table(name = "dien_vien")
+@Builder
 public class DienVien {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_dien_vien")
     private Integer idDienVien;
 
     @Column(name = "ten_dien_vien", nullable = false, length = 100)
     private String tenDienVien;
 
+    @ManyToMany(mappedBy = "dienVienList")
+    private List<Phim> phimList;
+
+    public DienVien(Integer id, String tenDienVien) {
+        this.idDienVien = id;
+        this.tenDienVien = tenDienVien;
+    }
 
 }

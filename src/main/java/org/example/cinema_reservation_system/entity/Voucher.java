@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import org.example.cinema_reservation_system.utils.Enum;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -23,13 +24,13 @@ public class Voucher {
     private String tenVoucher;
 
     @Column(name = "phan_tram_giam")
-    private Double phanTramGiam;
+    private BigDecimal phanTramGiam;
 
     @Column(name = "muc_giam_toi_da")
-    private Double mucGiamToiDa;
+    private BigDecimal mucGiamToiDa;
 
     @Column(name = "so_tien_giam")
-    private Double soTienGiam;
+    private BigDecimal soTienGiam;
 
     @Column(name = "ngay_bat_dau", nullable = false)
     private LocalDate ngayBatDau;

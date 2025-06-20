@@ -1,15 +1,18 @@
 package org.example.cinema_reservation_system.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.cinema_reservation_system.dto.VePhimDto;
 import org.example.cinema_reservation_system.dto.request.VePhimRequest;
 import org.example.cinema_reservation_system.entity.VePhim;
 import org.example.cinema_reservation_system.repository.*;
+import org.example.cinema_reservation_system.repository.suatchieu.SuatChieuRepository;
 import org.example.cinema_reservation_system.service.VePhimService;
-import org.example.cinema_reservation_system.utils.enums.TrangThaiVePhim;
+import org.example.cinema_reservation_system.utils.Enum;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -22,7 +25,7 @@ public class VePhimController {
     private final PhimRepo phimRepo;
     private final NhanVienRepo nhanVienRepo;
     private final HoaDonRepo hoaDonRepo;
-    private final SuatChieuRepo suatChieuRepo;
+    private final SuatChieuRepository suatChieuRepo;
     private final GheNgoiRepo gheNgoiRepo;
 
     @GetMapping("/history")
@@ -36,10 +39,10 @@ public class VePhimController {
     }
 
     @PostMapping("/news")
-    public ResponseEntity<VePhim> createVePhim(@RequestBody VePhimRequest request) {
+    public ResponseEntity<VePhim> createVePhim(@Valid @RequestBody VePhimRequest request) {
         VePhim vePhim = new VePhim();
 
-        vePhim.setGiaVe(request.getGiaVe());
+        vePhim.setGiaVe(BigDecimal.valueOf(request.getGiaVe()));
         vePhim.setNgayDat(request.getNgayDat());
 
         vePhim.setSuatChieu(suatChieuRepo.findById(request.getIdSuatChieu()).orElse(null));
@@ -51,7 +54,7 @@ public class VePhimController {
 
         // Convert String -> Enum safely
         try {
-            vePhim.setTrangThai(TrangThaiVePhim.valueOf(request.getTrangThai().toLowerCase()));
+            vePhim.setTrangThai(Enum.TrangThaiVePhim.valueOf(request.getTrangThai().toLowerCase()));
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Giá trị trạng thái không hợp lệ: " + request.getTrangThai());
         }
@@ -61,7 +64,7 @@ public class VePhimController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<VePhimDto> getVePhimById(@PathVariable Integer id) {
+    public ResponseEntity<VePhimDto> getVePhimById(@Valid @PathVariable Integer id) {
         VePhimDto vePhimDto = vePhimService.getVePhimDtoById(id);
         return ResponseEntity.ok(vePhimDto);
     }

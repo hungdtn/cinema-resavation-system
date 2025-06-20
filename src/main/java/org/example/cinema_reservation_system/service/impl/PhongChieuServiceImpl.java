@@ -16,6 +16,7 @@ import org.example.cinema_reservation_system.utils.Enum.TrangThaiPhongChieu;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,10 +57,11 @@ public class PhongChieuServiceImpl implements PhongChieuService {
         );
 
         // Bước 2: Lấy lại phòng chiếu vừa thêm (dựa vào tên + idRap để tìm)
-        // * giả định tên phòng chiếu là duy nhất trong 1 rạp
-        PhongChieu entity = phongChieuRepo.findTopByTenPhongChieuAndRapChieu_IdRapChieuOrderByIdPhongChieuDesc(
+// * giả định tên phòng chiếu là duy nhất trong 1 rạp
+        PhongChieu entity = phongChieuRepo.findTopByTenPhongChieuAndRapChieu_IdOrderByIdDesc(
                 dto.getTenPhongChieu(), dto.getIdRapChieu()
         ).orElseThrow(() -> new RuntimeException("Không tìm thấy phòng chiếu vừa thêm"));
+
 
         // Bước 3: Trả về DTO chi tiết
         RapChieu rap = entity.getRapChieu();
@@ -68,7 +70,7 @@ public class PhongChieuServiceImpl implements PhongChieuService {
                 entity.getTenPhongChieu(),
                 entity.getDienTichPhong(),
                 entity.getTrangThai(),
-                rap.getIdRapChieu(),
+                rap.getId(),
                 rap.getTenRapChieu(),
                 rap.getDiaChi(),
                 rap.getSoDienThoai(),
@@ -125,8 +127,8 @@ public class PhongChieuServiceImpl implements PhongChieuService {
                 .filter(p -> filterByRap(p, idRap))
                 .filter(p -> filterByTrangThai(p, trangThaiRaw))
                 .filter(p -> filterByTenPhong(p, tenPhongChieu))
-                .filter(p -> filterByDienTichMin(p, dienTichMin))
-                .filter(p -> filterByDienTichMax(p, dienTichMax))
+                .filter(p -> filterByDienTichMin(p, dienTichMin != null ? BigDecimal.valueOf(dienTichMin) : null))
+                .filter(p -> filterByDienTichMax(p, dienTichMax != null ? BigDecimal.valueOf(dienTichMax) : null))
                 .sorted(comparator)
                 .map(this::toResponseDto)
                 .toList();
@@ -184,7 +186,7 @@ public class PhongChieuServiceImpl implements PhongChieuService {
                 pc.getTenPhongChieu(),
                 pc.getDienTichPhong(),
                 pc.getTrangThai(),
-                rc.getIdRapChieu(),
+                rc.getId(),
                 rc.getTenRapChieu(),
                 rc.getDiaChi(),
                 rc.getSoDienThoai(),
@@ -193,7 +195,7 @@ public class PhongChieuServiceImpl implements PhongChieuService {
     }
 
     private boolean filterByRap(PhongChieu p, Integer idRap) {
-        return idRap == null || p.getRapChieu().getIdRapChieu().equals(idRap);
+        return idRap == null || p.getRapChieu().getId().equals(idRap);
     }
 
     private boolean filterByTrangThai(PhongChieu p, String trangThaiStr) {
@@ -209,12 +211,13 @@ public class PhongChieuServiceImpl implements PhongChieuService {
         return tenPhongChieu == null || p.getTenPhongChieu().toLowerCase().contains(tenPhongChieu.toLowerCase());
     }
 
-    private boolean filterByDienTichMin(PhongChieu p, Double dienTichMin) {
-        return dienTichMin == null || p.getDienTichPhong() >= dienTichMin;
+    private boolean filterByDienTichMin(PhongChieu p, BigDecimal dienTichMin) {
+        return dienTichMin == null || p.getDienTichPhong().compareTo(dienTichMin) >= 0;
     }
 
-    private boolean filterByDienTichMax(PhongChieu p, Double dienTichMax) {
-        return dienTichMax == null || p.getDienTichPhong() <= dienTichMax;
+    private boolean filterByDienTichMax(PhongChieu p, BigDecimal dienTichMax) {
+        return dienTichMax == null || p.getDienTichPhong().compareTo(dienTichMax) <= 0;
     }
+
 
 }

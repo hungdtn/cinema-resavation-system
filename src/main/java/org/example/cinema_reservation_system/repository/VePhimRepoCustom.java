@@ -1,9 +1,11 @@
 package org.example.cinema_reservation_system.repository;
 
+import java.math.BigDecimal;
+
 public interface VePhimRepoCustom {
     void insertVePhimNative(
             Integer idGheNgoi,
-            Double giaVe,
+            BigDecimal giaVe,
             Integer idHoaDon,
             Integer idKhachHang,
             java.sql.Date ngayDat,

@@ -5,13 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class PhongChieuResponseDto {//trả dữ liệu về FE
     private Integer idPhongChieu;
     private String tenPhongChieu;
-    private Double dienTichPhong;
+    private BigDecimal dienTichPhong;
     private Enum.TrangThaiPhongChieu trangThaiPhongChieu;
 
     // Thông tin từ Rạp Chiếu

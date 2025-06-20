@@ -12,7 +12,7 @@ import org.example.cinema_reservation_system.utils.Enum;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "GheNgoi", uniqueConstraints = @UniqueConstraint(columnNames = {"id_phong_chieu", "hang_ghe", "so_ghe"}))
+@Table(name = "Ghe_Ngoi", uniqueConstraints = @UniqueConstraint(columnNames = {"id_phong_chieu", "hang_ghe", "so_ghe"}))
 public class GheNgoi {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
