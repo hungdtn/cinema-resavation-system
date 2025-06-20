@@ -1,4 +1,4 @@
-package org.example.cinema_reservation_system.entity;
+package org.example.cinema_reservation_system.dto.suatchieudto;
 
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
@@ -7,63 +7,45 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.cinema_reservation_system.utils.Enum.TrangThaiSuatChieu;
-
-import jakarta.persistence.*;
+import org.example.cinema_reservation_system.utils.Enum;
 import org.hibernate.validator.constraints.ScriptAssert;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+//dto dùng cho việc tạo mới và update
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "SuatChieu")
 @ScriptAssert(
         lang = "javascript",
         script = "_this.thoiGianBatDau != null && _this.thoiGianKetThuc != null && _this.thoiGianBatDau.isBefore(_this.thoiGianKetThuc)",
         message = "thoiGianBatDau must be before thoiGianKetThuc"
 )
-public class SuatChieu {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idSuatChieu;
-
+public class SuatChieuRequestDTO {
     @NotBlank(message = "tenSuatChieu cannot be null or empty")
     @Size(max = 100, message = "tenSuatChieu must not exceed 100 characters")
-    @Column(name = "ten_suat_chieu", nullable = false, length = 100)
     private String tenSuatChieu;
 
     @NotNull(message = "ngayChieu cannot be null")
     @FutureOrPresent(message = "ngayChieu must be today or in the future")
-    @Column(name = "ngay_chieu", nullable = false)
     private LocalDate ngayChieu;
 
     @NotNull(message = "gioChieu cannot be null")
-    @Column(name = "gio_chieu", nullable = false)
     private LocalTime gioChieu;
 
     @NotNull(message = "thoiGianBatDau cannot be null")
-    @Column(name = "thoi_gian_bat_dau", nullable = false)
     private LocalTime thoiGianBatDau;
 
     @NotNull(message = "thoiGianKetThuc cannot be null")
-    @Column(name = "thoi_gian_ket_thuc", nullable = false)
     private LocalTime thoiGianKetThuc;
 
-    @NotNull(message = "trangThai cannot be null")
-    @Enumerated(EnumType.STRING)
-    @Column(name = "trang_thai", nullable = false)
-    private TrangThaiSuatChieu trangThai = TrangThaiSuatChieu.da_len_lich;
+    private Enum.TrangThaiSuatChieu trangThai = Enum.TrangThaiSuatChieu.da_len_lich;
 
-    @NotNull(message = "phim cannot be null")
-    @ManyToOne
-    @JoinColumn(name = "id_phim", nullable = false)
-    private Phim phim;
+    @NotNull(message = "idPhim cannot be null")
+    private Integer idPhim;
 
-    @NotNull(message = "phongChieu cannot be null")
-    @ManyToOne
-    @JoinColumn(name = "id_phong_chieu", nullable = false)
-    private PhongChieu phongChieu;
+    @NotNull(message = "idPhongChieu cannot be null")
+    private Integer idPhongChieu;
 }

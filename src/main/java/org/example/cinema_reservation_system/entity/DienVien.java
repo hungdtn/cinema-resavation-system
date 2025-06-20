@@ -19,4 +19,6 @@ public class DienVien {
 
     @Column(name = "ten_dien_vien", nullable = false, length = 100)
     private String tenDienVien;
+
+
 }
