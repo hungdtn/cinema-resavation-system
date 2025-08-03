@@ -18,7 +18,7 @@ public class Trailer {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String url;
 
- @OneToOne
+    @OneToOne
     @JoinColumn(name = "id_phim", nullable = false)
-    private Phim phim;
+    private Movie phim;
 }

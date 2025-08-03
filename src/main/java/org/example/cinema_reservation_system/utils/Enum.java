@@ -2,54 +2,54 @@ package org.example.cinema_reservation_system.utils;
 
 public class Enum {
     public enum TrangThaiRole {
-        hoat_dong, khong_hoat_dong
+        HOAT_DONG, KHONG_HOAT_DONG
     }
 
     public enum TrangThaiUserAccount {
-        hoat_dong, khong_hoat_dong
+        HOAT_DONG, KHONG_HOAT_DONG
     }
 
     public enum TrangThaiNhanVien {
-        hoat_dong, khong_hoat_dong
+        HOAT_DONG, KHONG_HOAT_DONG
     }
 
     public enum TrangThaiThanhToan {
-        cho_xu_ly, hoan_thanh, da_huy
+        CHO_XU_LY, HOAN_THANH, DA_HUY
     }
 
     public enum TrangThaiPhim {
-        hoat_dong, khong_hoat_dong
+        DANG_CHIEU, SAP_CHIEU, NGUNG_CHIEU
     }
 
     public enum TrangThaiVoucher {
-        hoat_dong, het_han, da_su_dung
+        HOAT_DONG, HET_HAN, DA_SU_DUNG
     }
 
     public enum TrangThaiKhachHang {
-        hoat_dong, khong_hoat_dong, bi_cam
+        HOAT_DONG, KHONG_HOAT_DONG, BI_CAM
     }
 
     public enum TrangThaiHoaDon {
-        cho_thanh_toan, da_thanh_toan, da_huy
+        CHO_THANH_TOAN, DA_THANH_TOAN, DA_HUY
     }
 
     public enum TrangThaiVePhim {
-        con_trong, da_ban, da_dat
+        CON_TRONG, DA_BAN, DA_DAT
     }
 
     public enum TrangThaiGheNgoi {
-        con_trong, da_dat, dang_su_dung
+        CON_TRONG, DA_DAT, DANG_SU_DUNG
     }
 
     public enum TrangThaiRapChieu {
-        hoat_dong, khong_hoat_dong, bao_tri
+        HOAT_DONG, KHONG_HOAT_DONG, BAO_TRI
     }
 
     public enum TrangThaiPhongChieu {
-        hoat_dong, khong_hoat_dong, bao_tri
+        HOAT_DONG, KHONG_HOAT_DONG, BAO_TRI
     }
 
     public enum TrangThaiSuatChieu {
-        da_len_lich, dang_chieu, hoan_thanh, da_huy
+        DA_LEN_LICH, DANG_CHIEU, HOAN_THANH, DA_HUY
     }
 }

@@ -2,19 +2,20 @@ package org.example.cinema_reservation_system.config;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
-import org.example.cinema_reservation_system.utils.Enum;
+import org.example.cinema_reservation_system.utils.enums.TrangThaiPhim;
 
 @Converter(autoApply = true)
-public class TrangThaiPhimConverter implements AttributeConverter<Enum.TrangThaiPhim, String> {
+public class TrangThaiPhimConverter implements AttributeConverter<TrangThaiPhim, String> {
     @Override
-    public String convertToDatabaseColumn(Enum.TrangThaiPhim attribute) {
+    public String convertToDatabaseColumn(TrangThaiPhim attribute) {
         return attribute != null ? attribute.name() : null;
     }
 
     @Override
-    public Enum.TrangThaiPhim convertToEntityAttribute(String dbData) {
+
+    public TrangThaiPhim convertToEntityAttribute(String dbData) {
         try {
-            return dbData != null ? Enum.TrangThaiPhim.valueOf(dbData.toUpperCase()) : null;
+            return dbData != null ? TrangThaiPhim.valueOf(dbData.toUpperCase()) : null;
         } catch (IllegalArgumentException e) {
             throw new RuntimeException("Invalid value for TrangThaiPhim enum: " + dbData);
         }

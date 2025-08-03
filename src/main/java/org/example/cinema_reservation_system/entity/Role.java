@@ -4,13 +4,13 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.cinema_reservation_system.utils.Enum;
+import org.example.cinema_reservation_system.utils.enums.TrangThaiRole;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "role")
+@Table(name = "vai_tro")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,5 +22,5 @@ public class Role {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "trang_thai", nullable = false)
-    private Enum.TrangThaiRole trangThai = Enum.TrangThaiRole.hoat_dong;
+    private TrangThaiRole trangThai = TrangThaiRole.HOAT_DONG;
 }

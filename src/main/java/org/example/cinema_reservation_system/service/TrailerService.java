@@ -1,7 +1,7 @@
 package org.example.cinema_reservation_system.service;
 
-import org.example.cinema_reservation_system.dto.phimdto.TrailerRequestDto;
-import org.example.cinema_reservation_system.dto.phimdto.TrailerResponseDto;
+import org.example.cinema_reservation_system.dto.moviedto.TrailerRequestDto;
+import org.example.cinema_reservation_system.dto.moviedto.TrailerResponseDto;
 
 import java.util.List;
 import java.util.Map;

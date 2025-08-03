@@ -2,7 +2,7 @@ package org.example.cinema_reservation_system.config;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
-import org.example.cinema_reservation_system.utils.LoaiHinhAnh;
+import org.example.cinema_reservation_system.utils.enums.LoaiHinhAnh;
 
 
 @Converter(autoApply = true)

@@ -1,12 +1,12 @@
 package org.example.cinema_reservation_system.validator;
 
-import org.example.cinema_reservation_system.dto.phimdto.PhimRequestDto;
+import org.example.cinema_reservation_system.dto.moviedto.MovieRequestDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
 public class PhimValidator {
-    public static void validate(PhimRequestDto dto, LocalDate ngayTao) {
+    public static void validate(MovieRequestDto dto, LocalDate ngayTao) {
         if (dto.getTenPhim() == null || dto.getTenPhim().isBlank()) {
             throw new IllegalArgumentException("Tên phim không được để trống.");
         }

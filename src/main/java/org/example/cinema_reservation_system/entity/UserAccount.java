@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
-import org.example.cinema_reservation_system.utils.Enum;
+import org.example.cinema_reservation_system.utils.enums.TrangThaiUserAccount;
 
 import java.time.LocalDateTime;
 
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "useraccount")
+@Table(name = "tai_khoan_nguoi_dung")
 public class UserAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,13 +35,13 @@ public class UserAccount {
 
     @ManyToOne
     @JoinColumn(name = "id_khach_hang")
-    private KhachHang khachHang;
+    private Customer khachHang;
 
     @ManyToOne
     @JoinColumn(name = "id_nhan_vien")
-    private NhanVien nhanVien;
+    private Staff nhanVien;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "trang_thai", nullable = false)
-    private Enum.TrangThaiUserAccount trangThai = Enum.TrangThaiUserAccount.hoat_dong;
+    @Column(name = "trang_thai")
+    private TrangThaiUserAccount trangThai;
 }

@@ -1,15 +1,14 @@
 package org.example.cinema_reservation_system.service.impl;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.example.cinema_reservation_system.dto.phimdto.TrailerRequestDto;
-import org.example.cinema_reservation_system.dto.phimdto.TrailerResponseDto;
-import org.example.cinema_reservation_system.entity.Phim;
+import org.example.cinema_reservation_system.dto.moviedto.TrailerRequestDto;
+import org.example.cinema_reservation_system.dto.moviedto.TrailerResponseDto;
+import org.example.cinema_reservation_system.entity.Movie;
 import org.example.cinema_reservation_system.entity.Trailer;
 import org.example.cinema_reservation_system.exception.ResourceNotFoundException;
 import org.example.cinema_reservation_system.mapper.TrailerMapper;
-import org.example.cinema_reservation_system.repository.phimrepository.PhimRepository;
-import org.example.cinema_reservation_system.repository.phimrepository.TrailerRepository;
+import org.example.cinema_reservation_system.repository.movie.MovieRepository;
+import org.example.cinema_reservation_system.repository.trailer.TrailerRepository;
 import org.example.cinema_reservation_system.service.TrailerService;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +20,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class TrailerServiceImpl implements TrailerService {
     private final TrailerRepository trailerRepo;
-    private final PhimRepository phimRepo;
+    private final MovieRepository phimRepo;
     private final TrailerMapper trailerMapper;
 
     @Override
@@ -37,7 +36,7 @@ public class TrailerServiceImpl implements TrailerService {
 
     @Override
     public TrailerResponseDto create(TrailerRequestDto dto) {
-        Phim phim = phimRepo.findById(dto.getIdPhim()).orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy phim với ID: " + dto.getIdPhim()));
+        Movie phim = phimRepo.findById(dto.getIdPhim()).orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy phim với ID: " + dto.getIdPhim()));
         Trailer trailer = trailerMapper.toEntity(dto);
         trailer.setPhim(phim);
         return trailerMapper.toDto(trailerRepo.save(trailer));
@@ -46,7 +45,7 @@ public class TrailerServiceImpl implements TrailerService {
     @Override
     public TrailerResponseDto update(Integer id, TrailerRequestDto dto) {
         Trailer trailer = trailerRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy trailer với ID: " + id));
-        Phim phim = phimRepo.findById(dto.getIdPhim()).orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy phim với ID: " + dto.getIdPhim()));
+        Movie phim = phimRepo.findById(dto.getIdPhim()).orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy phim với ID: " + dto.getIdPhim()));
         trailer.setUrl(dto.getUrl());
         trailer.setPhim(phim);
         return trailerMapper.toDto(trailerRepo.save(trailer));

@@ -6,6 +6,9 @@ import lombok.Data;
 @Data
 public class ChangePasswordDto {
     @NotBlank
+    private String tenDangNhap;
+
+    @NotBlank
     private String currentPassword;
 
     @NotBlank

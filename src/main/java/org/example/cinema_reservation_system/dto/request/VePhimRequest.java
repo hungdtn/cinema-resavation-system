@@ -14,5 +14,6 @@ public class VePhimRequest {
     private Integer idHoaDon;
     private Integer idPhim;
     private Integer idNhanVien;
+    private Integer idPhongChieu;
     private String trangThai; // String, sẽ convert sang enum
 }
