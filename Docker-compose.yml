@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14
+    container_name: postgres_container
+    restart: always
+    environment:
+      POSTGRES_DB: DevCinema
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+    ports:
+      - "5432:5432"
+    networks:
+      - cinema-network
+
+  app:
+    build: .
+    container_name: cinema_app
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/DevCinema
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123
+    networks:
+      - cinema-network
+
+networks:
+  cinema-network:
