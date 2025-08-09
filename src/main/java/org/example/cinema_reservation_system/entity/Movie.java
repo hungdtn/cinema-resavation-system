@@ -37,7 +37,7 @@ public class Movie {
     private LocalDate ngayPhatHanh;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "trang_thai", nullable = false, columnDefinition = "enum_trang_thai_phim")
+    @Column(name = "trang_thai", nullable = false)
     private TrangThaiPhim trangThai = TrangThaiPhim.NGUNG_CHIEU;
 
     @Column(name = "dinh_dang", nullable = false, length = 50)

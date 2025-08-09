@@ -38,7 +38,7 @@ public class Seat {
 
     @NotNull(message = "Trạng thái ghế không được null")
     @Enumerated(EnumType.STRING)
-    @Column(name = "trang_thai", nullable = false, columnDefinition = "enum_trang_thai_ghe_ngoi")
+    @Column(name = "trang_thai", nullable = false)
     private TrangThaiGheNgoi trangThai;
 
     @NotBlank(message = "Loại ghế không được để trống")
