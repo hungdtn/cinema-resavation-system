@@ -1,6 +1,9 @@
 package org.example.cinema_reservation_system.service.showtime.impl;
 
 // Service triển khai các chức năng xử lý logic cho Suất Chiếu
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.cinema_reservation_system.dto.showtimedto.*;
@@ -20,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -32,6 +36,7 @@ public class ShowTimeServiceImpl implements ShowTimeService {
     private final MovieRepository phimRepo;
     private final RoomRepository phongRepo;
     private final ShowTimeModelMapper mapper;
+    private final ObjectMapper objectMapper;
 
     // Tạo mới một suất chiếu
     @Override
@@ -268,5 +273,57 @@ public class ShowTimeServiceImpl implements ShowTimeService {
     @Override
     public Page<ShowTimeSummaryDTO> searchShowtimes(String keyword, LocalDate from, LocalDate to, TrangThaiSuatChieu t, Pageable pageable) {
         return repo.searchShowtimes(keyword, from, to, t, pageable).map(mapper::toSummary);
+    }
+
+    @Override
+    public ShowTimeResDTO getShowtimes(Long movieId, Long cinemaId) {
+        Map<String, Object> rawResult = repo.getShowtimeData(movieId, cinemaId);
+
+        ShowTimeResDTO res = new ShowTimeResDTO();
+        res.setSuccess(true);
+        res.setMessage("Lấy danh sách suất chiếu thành công");
+
+        ShowTimeResDTO.DataContent dataContent = new ShowTimeResDTO.DataContent();
+
+        try {
+            // Parse available dates
+            String availableDatesJson = (String) rawResult.get("available_dates");
+            List<ShowTimeResDTO.AvailableDate> availableDates =
+                    objectMapper.readValue(availableDatesJson,
+                            new TypeReference<List<ShowTimeResDTO.AvailableDate>>() {
+                            });
+            dataContent.setAvailableDates(availableDates);
+
+            // Parse showtimes
+            String showtimesJson = (String) rawResult.get("showtimes");
+            List<ShowTimeResDTO.ShowtimeInfo> showtimes =
+                    objectMapper.readValue(showtimesJson,
+                            new TypeReference<List<ShowTimeResDTO.ShowtimeInfo>>() {
+                            });
+            dataContent.setShowtimes(showtimes);
+
+            // Movie & cinema info
+            if (!showtimes.isEmpty()) {
+                ShowTimeResDTO.ShowtimeInfo first = showtimes.get(0);
+
+                ShowTimeResDTO.MovieInfo movie = new ShowTimeResDTO.MovieInfo();
+                movie.setId(first.getId());
+                movie.setName(first.getFormat());
+                movie.setPosterUrl(first.getPosterUrl());
+
+                ShowTimeResDTO.CinemaInfo cinema = new ShowTimeResDTO.CinemaInfo();
+                cinema.setId(first.getCinemaId());
+                cinema.setName(first.getCinemaName());
+
+                dataContent.setMovie(movie);
+                dataContent.setCinema(cinema);
+            }
+
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Lỗi parse JSON từ DB", e);
+        }
+
+        res.setData(dataContent);
+        return res;
     }
 }

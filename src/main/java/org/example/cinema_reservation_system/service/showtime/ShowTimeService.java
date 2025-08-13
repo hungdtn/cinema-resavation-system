@@ -57,4 +57,6 @@ public interface ShowTimeService {
     void expireOldShowtimes();
 
     Page<ShowTimeSummaryDTO> searchShowtimes(String keyword, LocalDate fromDate, LocalDate toDate, TrangThaiSuatChieu trangThai, Pageable pageable);
+
+    ShowTimeResDTO getShowtimes(Long movieId, Long cinemaId);
 }

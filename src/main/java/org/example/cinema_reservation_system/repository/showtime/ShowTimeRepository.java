@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 
 public interface ShowTimeRepository extends JpaRepository<ShowTime, Integer> {
 
@@ -85,4 +86,47 @@ public interface ShowTimeRepository extends JpaRepository<ShowTime, Integer> {
                                    @Param("toDate") LocalDate toDate,
                                    @Param("trangThai") TrangThaiSuatChieu trangThai,
                                    Pageable pageable);
+
+    @Query(value = """
+        WITH showtime_data AS (
+            SELECT
+                p.id_phim AS movie_id,
+                p.ten_phim,
+                ha.url AS poster_url,
+                r.id_rap_chieu AS cinema_id,
+                r.ten_rap_chieu AS cinema_name,
+                sc.id_suat_chieu,
+                sc.ngay_chieu,
+                TO_CHAR(sc.thoi_gian_bat_dau, 'HH24:MI') AS start_time,
+                TO_CHAR(sc.thoi_gian_ket_thuc, 'HH24:MI') AS end_time,
+                COUNT(g.id_ghe_ngoi) AS totalSeats,
+                COUNT(g.id_ghe_ngoi) FILTER (WHERE g.trang_thai = 'CON_TRONG') AS availableSeats,
+                CASE WHEN COUNT(g.id_ghe_ngoi) FILTER (WHERE g.trang_thai = 'CON_TRONG') = 0
+                     THEN TRUE ELSE FALSE END AS soldOut,
+                p.dinh_dang || ' PHỤ ĐỀ' AS format
+            FROM suat_chieu sc
+            JOIN phim p ON sc.id_phim = p.id_phim
+            JOIN phong_chieu pc ON sc.id_phong_chieu = pc.id_phong_chieu
+            JOIN rap_chieu r ON pc.id_rap_chieu = r.id_rap_chieu
+            JOIN ghe_ngoi g ON g.id_phong_chieu = pc.id_phong_chieu
+            LEFT JOIN hinh_anh ha 
+                ON ha.id_phim = p.id_phim
+               AND LOWER(ha.loai_hinh_anh) = 'poster'
+            WHERE p.id_phim = :movieId
+              AND r.id_rap_chieu = :cinemaId
+            GROUP BY p.id_phim, p.ten_phim, ha.url, r.id_rap_chieu, r.ten_rap_chieu,
+                     sc.id_suat_chieu, sc.ngay_chieu, sc.thoi_gian_bat_dau, sc.thoi_gian_ket_thuc, p.dinh_dang
+        )
+                SELECT\s
+                              JSON_AGG(DISTINCT JSON_BUILD_OBJECT(
+                                  'value', ngay_chieu,
+                                  'day', EXTRACT(DAY FROM ngay_chieu),
+                                  'month', TO_CHAR(ngay_chieu, '/MM'),
+                                  'weekday', TO_CHAR(ngay_chieu, 'DY')
+                              )::jsonb)::text AS available_dates,
+                              JSON_AGG(showtime_data)::text AS showtimes
+                          FROM showtime_data
+        """, nativeQuery = true)
+            Map<String, Object> getShowtimeData(@Param("movieId") Long movieId,
+                                                @Param("cinemaId") Long cinemaId);
 }

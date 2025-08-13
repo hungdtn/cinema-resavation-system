@@ -7,6 +7,7 @@ import org.example.cinema_reservation_system.service.showtime.ShowTimeService;
 import org.example.cinema_reservation_system.utils.enums.TrangThaiSuatChieu;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -81,5 +82,14 @@ public class ShowTimeController {
             @RequestParam(required=false) TrangThaiSuatChieu status,
             Pageable p) {
         return svc.searchShowtimes(kw, from, to, status, p);
+    }
+
+    @GetMapping("/by-movie-cinema")
+    public ResponseEntity<ShowTimeResDTO> getShowtimes(
+            @RequestParam("movieId") Long movieId,
+            @RequestParam("cinemaId") Long cinemaId) {
+
+        ShowTimeResDTO response = svc.getShowtimes(movieId, cinemaId);
+        return ResponseEntity.ok(response);
     }
 }
